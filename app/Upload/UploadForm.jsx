@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Errormsg from "./Errormsg";
-import UploadedData from "./components/uploadedData";
-import Sherelink from "./components/Sherelink";
+import UploadedData from "./result/uploadedData";
+import Sherelink from "./result/Sherelink";
 import LoadingIcon from "../photos/loading-gif.gif";
 
 //firebase import
@@ -137,7 +137,16 @@ export default function UploadForm() {
           </label>
           <div className="col-span-1">
             <p className="text-right  pr-6 text-red-400">
-              <UploadedData removeFile={() => setFile(null)} />
+
+
+  <button
+      onClick={()=>setFile(null)}
+      type="button"
+      className=" px-3 border-purple-200 border py-2 rounded-xl hover:bg-purple-100"
+    >
+      X
+    </button>
+
             </p>
           </div>
         </div>

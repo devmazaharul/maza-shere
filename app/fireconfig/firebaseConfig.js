@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 const firebaseConfig = {
   apiKey: "AIzaSyDgadp3sYZPqHft-7cVXTKG75Jf6dnlNL8",
   authDomain: "fileshere-a8a8d.firebaseapp.com",
