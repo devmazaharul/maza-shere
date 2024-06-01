@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-export default function page() {
+export default function Page() {
   return (
     <div className='text-center'>
         <h1 className='text-2xl text-purple-600 font-semibold py-6'>Welcome to about page</h1>

@@ -12,7 +12,7 @@ export default function Hero() {
         </p>
         <div className="actions grid gap-2 grid-cols-2 w-fit mt-8 mx-auto ">
           <Link className="shadow-xl  rounded-md outline-none bg-purple-500 px-8 py-2 text-gray-100" href={"/Upload"}>Get start</Link>
-          <Link  className="shadow-lg border rounded-md outline-none  px-10 py-2 " href={"/seemore"}>See more</Link>
+          <Link  className="shadow-lg border rounded-md outline-none  px-10 py-2 " href={"#"}>See more</Link>
         </div>
       </div>
     </>

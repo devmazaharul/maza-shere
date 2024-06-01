@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Errormsg from "./Errormsg";
-import Axios from "axios";
 import UploadedData from "./components/uploadedData";
 import Sherelink from "./components/Sherelink";
 import LoadingIcon from "../photos/loading-gif.gif";
 
-
 //firebase import
-import { app } from "../(firebase)/firebase/firebaseConfig";
+import { app } from "../fireconfig/firebaseConfig";
 import {
   ref,
   uploadBytesResumable,
@@ -17,8 +15,6 @@ import {
 } from "firebase/storage";
 
 export default function UploadForm() {
-
-
   const [file, setFile] = useState(null);
   const [err, setErr] = useState(null);
   const [msg, setMsg] = useState(null);
@@ -42,10 +38,6 @@ export default function UploadForm() {
       fileTypecheck == "image/jpeg" ||
       fileTypecheck == " application/json" ||
       fileTypecheck == "video/mp4"
-      //json file extention == application/json
-      //pdf file extention == application/json
-      //video file extention == application/json
-      //audio file extention == application/json
     ) {
       setFile(e.target.files[0]);
       setErr(null);
@@ -90,7 +82,9 @@ export default function UploadForm() {
       ) : (
         <form className="flex items-center space-x-6 shadow-lg  py-2 mb-5 rounded-lg border-purple-100 px-2 border">
           <div className="shrink-0">
-            <Image width={200} height={20}
+            <Image
+              width={200}
+              height={20}
               className="h-16 w-16 object-cover "
               src="https://cdn3d.iconscout.com/3d/premium/thumb/file-8334581-6648107.png"
               alt="Current profile photo"
@@ -159,7 +153,7 @@ export default function UploadForm() {
         >
           {loading ? (
             <Image
-            alt="loading icon"
+              alt="loading icon"
               className="mx-auto block"
               height={20}
               src={LoadingIcon}
