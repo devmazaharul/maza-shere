@@ -1,17 +1,7 @@
-"use client";
-import React, { useState } from "react";
+"use client"
 import UploadForm from "./UploadForm";
 
 export default function Page() {
-  const [file, setFile] = useState(null);
-  const [submit, setSubmit] = useState(false);
-
-  const handleSubmit = (e) => {
-    setSubmit(true);
-
-    e.preventDefault();
-  };
-
   return (
     <>
       <h1 className="text-3xl text-purple-600 font-bold text-center mt-4">

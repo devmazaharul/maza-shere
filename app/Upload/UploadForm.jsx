@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Errormsg from "./Errormsg";
-import UploadedData from "./result/uploadedData";
 import Sherelink from "./result/Sherelink";
 import LoadingIcon from "../photos/loading-gif.gif";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //firebase import
 import { app } from "../fireconfig/firebaseConfig";
 import {
@@ -31,49 +31,69 @@ export default function UploadForm() {
 
   const handleFileUp = (e) => {
     const fileTypecheck = e.target.files[0].type;
+    setErr(fileTypecheck)
+  
     if (
       fileTypecheck == "image/png" ||
       fileTypecheck == "application/pdf" ||
       fileTypecheck == "image/jpg" ||
       fileTypecheck == "image/jpeg" ||
       fileTypecheck == " application/json" ||
-      fileTypecheck == "video/mp4"
+      fileTypecheck == "video/mp4" ||
+      fileTypecheck == "audio/mpeg" ||
+      fileTypecheck == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
     ) {
-      setFile(e.target.files[0]);
-      setErr(null);
-      e.target.value = "";
+
+const fileSize=parseInt(e.target.files[0].size)
+if(fileSize/1000 < 60000  ){ 
+//10mb
+ setFile(e.target.files[0]);
+ setErr(null);
+   e.target.value = "";
+
+}else{
+  setErr("Max size 60 MB")
+  toast.error('max size 60 MB',{autoClose:2000});
+}
     } else {
       setErr("This type file not supported ");
       setFile(null);
-
       e.target.value = "";
     }
   };
 
   const handleFileupload = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const stroge = getStorage(app);
-    const getRef = ref(stroge, `file-shere/${file.name}`);
-    const metadata = {
-      contentType: file.type,
-    };
+ 
+    try {
+      setLoading(true);
+      const stroge = getStorage(app)
+      const getRef = ref(stroge, `file-shere/${file.name}`);
+      const metadata = {
+        contentType: file.type,
+      };
 
-    const uploadTask = uploadBytesResumable(getRef, file, metadata)
+      uploadBytesResumable(getRef, file, metadata)
       .then(async (e) => {
         setDlink(await getDownloadURL(getRef));
         setMsg(e.metadata);
         setLoading(false);
+        toast.success('successfully uploaded',{autoClose:1000});
       })
-      .catch((err) => {
-        setErr(err);
-        setLoading(false);
-      });
+     
+    } catch (error) {
+      console.log("net off")
+      setLoading(false)
+    }
   };
 
-  const removeFile = (e) => {
-    setFile(null);
-  };
+
+const removeAddedfile=()=>{
+  setFile(null)
+  toast.warning("File removbed",{
+    autoClose:1000
+  })
+}
 
   return (
     <div>
@@ -139,13 +159,15 @@ export default function UploadForm() {
             <p className="text-right  pr-6 text-red-400">
 
 
-  <button
-      onClick={()=>setFile(null)}
-      type="button"
-      className=" px-3 border-purple-200 border py-2 rounded-xl hover:bg-purple-100"
-    >
-      X
-    </button>
+ {loading?"": (
+   <button
+   onClick={removeAddedfile}
+   type="button"
+   className=" px-3 text-xl  py-2  hover:bg-purple-50 hover:rounded-full"
+ >
+   X
+ </button>
+ )}
 
             </p>
           </div>
@@ -162,11 +184,12 @@ export default function UploadForm() {
         >
           {loading ? (
             <Image
+            src={LoadingIcon}
               alt="loading icon"
               className="mx-auto block"
+              width={20}
               height={20}
-              src={LoadingIcon}
-              width={25}
+  
             />
           ) : (
             "Upload"
