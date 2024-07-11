@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { toast } from "react-toastify";
-
+import toast from "react-hot-toast";
 export default function Sherelink({ dLink, shere }) {
   const [copy, setcopy] = useState(false);
 

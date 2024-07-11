@@ -2,7 +2,7 @@ import { Chakra_Petch} from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 const ChakraPetch = Chakra_Petch({
   weight: ['400','700'],
@@ -25,7 +25,10 @@ export default function RootLayout({ children }) {
    <Header/>
    <div className="px-4 py-2 mb-14">
         {children}
-        <ToastContainer/>
+        <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
         </div>
         <Footer/>
 

@@ -3,8 +3,8 @@ import Image from "next/image";
 import Errormsg from "./Errormsg";
 import Sherelink from "./result/Sherelink";
 import LoadingIcon from "../photos/loading-gif.gif";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from "react-hot-toast";
+
 //firebase import
 import { app } from "../fireconfig/firebaseConfig";
 import {
@@ -90,7 +90,7 @@ if(fileSize/1000 < 60000  ){
 
 const removeAddedfile=()=>{
   setFile(null)
-  toast.warning("File removbed",{
+  toast.error("File remove",{
     autoClose:1000
   })
 }
